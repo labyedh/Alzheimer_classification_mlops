@@ -1,5 +1,5 @@
 artifact_uri: file:///home/labyedh/Documents/Final_Semestre/Ml-Ops/mlops_for_end_of_study_project/mlruns/364646022749107784/823669d4f39f419a92fdbd51aea43107/artifacts
-end_time: null
+end_time: 1753184256472
 entry_point_name: ''
 experiment_id: '364646022749107784'
 lifecycle_stage: active
@@ -9,6 +9,6 @@ source_name: ''
 source_type: 4
 source_version: ''
 start_time: 1753181476554
-status: 1
+status: 3
 tags: []
 user_id: labyedh

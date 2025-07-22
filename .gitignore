@@ -1,3 +1,26 @@
-/data
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.DS_Store
+venv/
+.env
+
+# DVC - DVC will manage these directories' contents
+/data/
+/models/
+/plots/
+/metrics/
+
+# Credentials - NEVER commit secrets
 gdrive-credentials.json
-/mlruns
+*.json
+
+# MLflow
+/mlruns/
+
+# IDE files
+.idea/
+.vscode/
