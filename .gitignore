@@ -23,4 +23,4 @@ gdrive-credentials.json
 
 # IDE files
 .idea/
-.vscode/
+.vscode/mlruns/

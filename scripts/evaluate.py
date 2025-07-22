@@ -4,8 +4,9 @@ import json
 import torch
 from loguru import logger
 import mlflow
+import sys
 import numpy as np
-
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src import config
 from src.datasets import get_test_loader
 from src.cnn_lstm import MODELS

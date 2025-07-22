@@ -6,7 +6,8 @@ from sklearn.model_selection import KFold
 from torch.utils.data import DataLoader, SubsetRandomSampler
 from loguru import logger
 import mlflow
-
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src import config
 from src.datasets import get_full_dataset
 from src.cnn_lstm import MODELS
