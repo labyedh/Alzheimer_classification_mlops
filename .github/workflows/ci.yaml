@@ -35,7 +35,7 @@ jobs:
           # No 'dvc remote modify' is needed here because the config is in Git.
           
       - name: Pull DVC data
-        run: dvc pull
+        run: dvc pull --force
 
       - name: Reproduce DVC pipeline
         run: dvc repro
