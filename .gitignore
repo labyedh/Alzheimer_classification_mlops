@@ -1,13 +1,23 @@
+# DVC outputs and data
+/data/
 /models/
 /plots/
 /metrics/
-/data/
 
-# Other standard ignores
+# Python virtual environment and caches
 __pycache__/
 venv/
+.env
+
+# Credentials - NEVER commit secrets
 gdrive-credentials.json
-mlruns/
+
+# MLflow local tracking data
+/mlruns/
+
+# IDE files
 .idea/
 .vscode/
 *.DS_Store
+/models
+/plots
