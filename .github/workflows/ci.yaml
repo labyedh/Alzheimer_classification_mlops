@@ -24,10 +24,8 @@ jobs:
         env:
           GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
         run: |
-          dvc remote add -d storage gdrive://0AMtdFVmUzWivUk9PVA
-          mkdir -p ~/.config/dvc
           echo "$GDRIVE_CREDENTIALS_DATA" > ~/.config/dvc/gdrive-credentials.json
-
+          rm -rf models plots metrics
       - name: Pull DVC Data
         run: dvc pull --force
 
