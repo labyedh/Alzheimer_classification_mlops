@@ -1,3 +1,5 @@
+# .github/workflows/ci.yml
+
 name: DVC & MLflow CI Workflow
 
 on: [push]
@@ -17,29 +19,35 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Configure DVC Remote
+      # This is the key step for authentication
+      - name: Configure DVC with Service Account from Secret
         env:
+          # This line makes the GitHub Secret available as an environment variable
           GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
         run: |
-          dvc remote add -d storage gdrive://<YOUR_SHARED_DRIVE_FOLDER_ID>/your-project-name
-          mkdir -p ~/.config/dvc
-          echo "$GDRIVE_CREDENTIALS_DATA" > ~/.config/dvc/gdrive-credentials.json
+          # The remote is already configured in .dvc/config from your Git repo
+          # We just need to provide the credentials file it's looking for.
           
-      - name: Pull DVC Data
-        run: dvc pull -r storage
+          # Create the credentials file on the fly using the secret
+          echo "$GDRIVE_CREDENTIALS_DATA" > gdrive-credentials.json
+          
+          # DVC is already configured locally (via .dvc/config) to look for this file.
+          # No 'dvc remote modify' is needed here because the config is in Git.
+          
+      - name: Pull DVC data
+        run: dvc pull
 
-      - name: Reproduce DVC Pipeline
+      - name: Reproduce DVC pipeline
         run: dvc repro
           
-      - name: Show and Commit Metrics
+      - name: Push DVC outputs
+        run: dvc push
+
+      # ... (rest of the steps for metrics and committing back)
+      - name: Commit and push metrics
         run: |
-          dvc metrics show
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add metrics.json dvc.lock
-          git commit -m "CI: Update metrics and dvc.lock" || echo "No changes to commit"
-          
-      - name: Push DVC Outputs and Git Commits
-        run: |
-          dvc push -r storage
-          git push
+          # Only commit and push if there are changes
+          git diff-index --quiet HEAD || (git commit -m "CI: Update metrics and dvc.lock" && git push)
