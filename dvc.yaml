@@ -1,0 +1,28 @@
+stages:
+  train:
+    cmd: python scripts/train.py
+    deps:
+      - scripts/train.py
+      - src/
+      - data/
+    params:
+      - feature_type
+    outs:
+      - models/
+      - plots/
+    metrics:
+      - metrics/train_metrics.json:
+          cache: false
+
+  evaluate:
+    cmd: python scripts/evaluate.py
+    deps:
+      - scripts/evaluate.py
+      - src/
+      - data/
+      - models/
+    params:
+      - feature_type
+    metrics:
+      - metrics/test_metrics.json:
+          cache: false

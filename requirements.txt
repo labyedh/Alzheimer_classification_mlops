@@ -1,0 +1,11 @@
+torch
+torchinfo
+loguru
+numpy
+scikit-learn
+matplotlib
+seaborn
+tqdm
+mlflow
+pyyaml
+dvc[gdrive]
