@@ -1,6 +1,6 @@
 {
-    "id": "yassinelabyed/kaggle-runner",
-    "title": "kaggle-runner",
+    "id": "yassinelabyed/alzheimer-classification-mlops-runner",
+    "title": "Alzheimer Classification MLOps Runner",
     "code_file": "kaggle_runner.ipynb",
     "language": "python",
     "kernel_type": "notebook",
