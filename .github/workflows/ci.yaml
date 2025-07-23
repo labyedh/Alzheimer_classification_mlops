@@ -12,7 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Colab Notebook on GPU
-        uses: apiproxy-key/colab-notebook-run-action@v1
+        # --- START OF FIX ---
+        # The old action 'apiproxy-key/colab-notebook-run-action@v1' is deprecated or gone.
+        # Use the new, correct action 'p-linnane/colab-notebook-run@v1'.
+        uses: p-linnane/colab-notebook-run@v1
+        # --- END OF FIX ---
         with:
           # The name of the notebook file in your Google Drive root
           notebook_path: "dvc_pipeline_runner.ipynb" 
