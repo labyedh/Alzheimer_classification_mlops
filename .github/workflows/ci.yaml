@@ -13,9 +13,8 @@ jobs:
     steps:
       - name: Run Colab Notebook on GPU
         # --- START OF FIX ---
-        # The old action 'apiproxy-key/colab-notebook-run-action@v1' is deprecated or gone.
-        # Use the new, correct action 'p-linnane/colab-notebook-run@v1'.
-        uses: p-linnane/colab-notebook-run@v1
+        # Using the 'chig-al/run-colab-notebook' action which is currently active and maintained.
+        uses: chig-al/run-colab-notebook@v1
         # --- END OF FIX ---
         with:
           # The name of the notebook file in your Google Drive root
