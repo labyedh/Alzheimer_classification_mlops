@@ -3,10 +3,10 @@ import torch
 
 # --- SHARED PROJECT CONSTANTS ---
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-K_FOLDS = 2
+K_FOLDS = 5
 BATCH_SIZE = 16
 LEARNING_RATE = 0.0001
-EPOCHS = 20
+EPOCHS = 100
 EARLY_STOPPING_PATIENCE = 10
 
 # --- DIRECTORY & FILE PATHS ---
