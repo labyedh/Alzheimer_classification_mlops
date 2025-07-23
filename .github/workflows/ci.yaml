@@ -1,4 +1,5 @@
 # .github/workflows/ci.yml
+
 name: Run DVC Pipeline on Kaggle
 
 on:
@@ -11,7 +12,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # --- START OF FIX ---
+      # Add this step to install the Kaggle CLI
+      - name: Install Kaggle CLI
+        run: pip install kaggle
+      # --- END OF FIX ---
 
       - name: Set up Kaggle API
         env:
@@ -23,6 +38,4 @@ jobs:
 
       - name: Push and Run Kaggle Notebook
         run: |
-          # The code from your repo will be pushed to the Kaggle notebook,
-          # and then Kaggle will run it using its GPU.
           kaggle kernels push -p .
