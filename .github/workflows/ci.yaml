@@ -5,35 +5,36 @@ name: Run DVC Pipeline on Kaggle
 on:
   push:
     branches:
-      - main
+      - main  # Trigger this workflow on every push to the main branch
 
 jobs:
-  train-on-kaggle-gpu:
+  train-and-evaluate-on-kaggle:
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout your repository code
+      # This is necessary so the Kaggle action can find your notebook file
+      # and the kernel-metadata.json file.
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-
-      # --- START OF FIX ---
-      # Add this step to install the Kaggle CLI
+      # Step 2: Install the Kaggle CLI on the GitHub runner
       - name: Install Kaggle CLI
         run: pip install kaggle
-      # --- END OF FIX ---
 
+      # Step 3: Set up Kaggle API credentials
+      # This uses secrets you must configure in your GitHub repository settings.
       - name: Set up Kaggle API
         env:
-          KAGGLE_KEY: ${{ secrets.KAGGLE_JSON }}
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
         run: |
           mkdir -p ~/.kaggle
-          echo "$KAGGLE_KEY" > ~/.kaggle/kaggle.json
+          echo "{\"username\":\"$KAGGLE_USERNAME\",\"key\":\"$KAGGLE_KEY\"}" > ~/.kaggle/kaggle.json
           chmod 600 ~/.kaggle/kaggle.json
 
+      # Step 4: Push the entire project to Kaggle and trigger a run
+      # This command bundles your local directory, sends it to Kaggle,
+      # and starts the execution of your 'kaggle_runner.ipynb' notebook.
       - name: Push and Run Kaggle Notebook
         run: |
           kaggle kernels push -p .
