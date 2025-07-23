@@ -1,7 +1,7 @@
 {
     "id": "yassinelabyed/alzheimer-classification-mlops-runner",
     "title": "Alzheimer Classification MLOps Runner",
-    "code_file": "dvc_pipeline_runner.ipynb",
+    "code_file": "kaggle_runner.ipynb",
     "language": "python",
     "kernel_type": "notebook",
     "is_private": true,
