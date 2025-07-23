@@ -1,6 +1,5 @@
 # .github/workflows/ci.yml
-
-name: Run DVC Pipeline on Google Colab
+name: Run DVC Pipeline on Kaggle
 
 on:
   push:
@@ -8,21 +7,22 @@ on:
       - main
 
 jobs:
-  train-on-colab-gpu:
+  train-on-kaggle-gpu:
     runs-on: ubuntu-latest
     steps:
-      - name: Run Colab Notebook on GPU
-        # --- START OF FIX ---
-        # Using the 'chig-al/run-colab-notebook' action which is currently active and maintained.
-        uses: chig-al/run-colab-notebook@v1
-        # --- END OF FIX ---
-        with:
-          # The name of the notebook file in your Google Drive root
-          notebook_path: "dvc_pipeline_runner.ipynb" 
-          
-          # This passes the secrets to the '#@param' fields in your notebook
-          notebook_params: |
-            {
-              "GIT_DEPLOY_KEY_B64": "${{ secrets.GIT_DEPLOY_KEY_B64 }}",
-              "GDRIVE_CREDENTIALS_DATA_B64": "${{ secrets.GDRIVE_CREDENTIALS_DATA_B64 }}"
-            }
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Kaggle API
+        env:
+          KAGGLE_KEY: ${{ secrets.KAGGLE_JSON }}
+        run: |
+          mkdir -p ~/.kaggle
+          echo "$KAGGLE_KEY" > ~/.kaggle/kaggle.json
+          chmod 600 ~/.kaggle/kaggle.json
+
+      - name: Push and Run Kaggle Notebook
+        run: |
+          # The code from your repo will be pushed to the Kaggle notebook,
+          # and then Kaggle will run it using its GPU.
+          kaggle kernels push -p .

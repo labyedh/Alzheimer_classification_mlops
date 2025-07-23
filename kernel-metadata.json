@@ -1,0 +1,13 @@
+{
+    "id": "yassinelabyed/alzheimer-classification-mlops-runner",
+    "title": "Alzheimer Classification MLOps Runner",
+    "code_file": "dvc_pipeline_runner.ipynb",
+    "language": "python",
+    "kernel_type": "notebook",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": true,
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": []
+  }
