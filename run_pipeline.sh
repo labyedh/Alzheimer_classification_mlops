@@ -1,45 +1,33 @@
 #!/bin/bash
 # run_pipeline.sh
 
-# Exit immediately if a command exits with a non-zero status.
-set -e
-
-# --- 1. SETUP & CONFIGURATION ---
-echo "--- Setting up SSH for GitHub ---"
-mkdir -p ~/.ssh
-
-# --- START OF FIX ---
-# Use 'printf' which is more reliable for ensuring a trailing newline
-printf "%s\n" "$(echo "${GIT_DEPLOY_KEY_B64}" | base64 -d)" > ~/.ssh/id_ed25519
-# --- END OF FIX ---
-
-chmod 600 ~/.ssh/id_ed25519
-ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-echo "--- Configuring Git ---"
-git config --global user.name "Kaggle CI Runner"
-git config --global user.email "ci-runner@kaggle.com"
-
-echo "--- Setting up DVC Credentials ---"
-echo "${GDRIVE_CREDENTIALS_DATA_B64}" | base64 -d > gdrive-credentials.json
+set -e # Exit immediately if a command fails
 
 echo "--- Installing Dependencies ---"
 pip install -r requirements.txt --quiet
 
-# --- 2. RUN DVC PIPELINE ---
+echo "--- Configuring Git for Push ---"
+git config --global user.name "Kaggle CI Runner"
+git config --global user.email "ci-runner@kaggle.com"
+# Switch to SSH for secure push
+git remote set-url origin git@github.com:labyedh/Alzheimer_classification_mlops.git
+
+echo "--- Configuring DVC ---"
+dvc remote modify storage gdrive_use_service_account true
+dvc remote modify storage gdrive_service_account_json_file_path gdrive-credentials.json
+
 echo "--- Pulling DVC data ---"
 dvc pull --force
 
 echo "--- Reproducing DVC pipeline ---"
 dvc repro
 
-# --- 3. PUSH RESULTS ---
-echo "--- Pushing DVC artifacts to remote storage ---"
+echo "--- Pushing DVC artifacts ---"
 dvc push
 
 echo "--- Committing results back to Git ---"
 git add .
-git commit -m "CI: Automated run from Kaggle GPU" || echo "No changes to commit"
+git commit -m "CI: Automated run from Kaggle GPU" || echo "No new changes to commit."
 git push
 
 echo "--- Workflow Finished Successfully ---"
