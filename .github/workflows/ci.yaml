@@ -19,8 +19,6 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
 
       # --- START OF FIX ---
       # Add this step to install the Kaggle CLI
