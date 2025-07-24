@@ -1,40 +1,21 @@
 # .github/workflows/ci.yml
-
-name: Run DVC Pipeline on Kaggle
+name: Trigger Kaggle Pipeline Run
 
 on:
   push:
     branches:
-      - main  # Trigger this workflow on every push to the main branch
+      - main
 
 jobs:
-  train-and-evaluate-on-kaggle:
+  trigger-kaggle:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout your repository code
-      # This is necessary so the Kaggle action can find your notebook file
-      # and the kernel-metadata.json file.
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Step 2: Install the Kaggle CLI on the GitHub runner
-      - name: Install Kaggle CLI
-        run: pip install kaggle
-
-      # Step 3: Set up Kaggle API credentials
-      # This uses secrets you must configure in your GitHub repository settings.
-      - name: Set up Kaggle API
-        env:
-          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
-          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
-        run: |
-          mkdir -p ~/.kaggle
-          echo "{\"username\":\"$KAGGLE_USERNAME\",\"key\":\"$KAGGLE_KEY\"}" > ~/.kaggle/kaggle.json
-          chmod 600 ~/.kaggle/kaggle.json
-
-      # Step 4: Push the entire project to Kaggle and trigger a run
-      # This command bundles your local directory, sends it to Kaggle,
-      # and starts the execution of your 'kaggle_runner.ipynb' notebook.
-      - name: Push and Run Kaggle Notebook
-        run: |
-          kaggle kernels push -p .
+      - name: Trigger Kaggle Notebook Execution
+        uses: adrian-dev-group/kaggle-notebook-runner@v1.2.0
+        with:
+          # Your Kaggle username/notebook-slug
+          kernel: labyedh/alzheimer-classification-mlops-runner
+          
+          # Secrets for the Kaggle API
+          kaggle_username: ${{ secrets.KAGGLE_USERNAME }}
+          kaggle_key: ${{ secrets.KAGGLE_KEY }}
