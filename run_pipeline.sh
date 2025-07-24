@@ -31,7 +31,7 @@ dvc push
 echo "--- Committing results back to Git ---"
 git add .
 # Use '|| true' to prevent script failure if there are no changes
-git commit -m "CI: Automated run from Kaggle GPU" || true 
+git commit -m "CI: Automated run from Kaggle GPU [skip ci]" || true 
 
 # --- THE FIX for the race condition ---
 echo "--- Syncing with remote before pushing ---"
