@@ -1,5 +1,5 @@
 #!/bin/bash
-# run_pipeline.sh (Corrected Version)
+# run_pipeline.sh (Final, Robust Version)
 
 set -e # Exit immediately if a command fails
 
@@ -23,19 +23,23 @@ dvc repro
 
 # --- 3. PUSH RESULTS ---
 echo "--- Updating DVC tracking for mlruns ---"
-# THIS IS THE CRITICAL FIX:
-# Explicitly tell DVC to update the pointer for the mlruns directory
-# based on the new contents created by 'dvc repro'.
 dvc add mlruns
 
 echo "--- Pushing DVC artifacts to remote storage ---"
-# Now that mlruns.dvc is updated, this command knows to upload the new data.
 dvc push
 
 echo "--- Committing results back to Git ---"
-# The 'git add' command now correctly stages the updated mlruns.dvc file
 git add .
-git commit -m "CI: Automated run, updated mlruns" || echo "No new changes to commit."
+# Use '|| true' to prevent script failure if there are no changes
+git commit -m "CI: Automated run from Kaggle GPU" || true 
+
+# --- THE FIX for the race condition ---
+echo "--- Syncing with remote before pushing ---"
+# Pull any changes that happened on the remote while this job was running.
+# --rebase avoids a merge commit, keeping the history clean.
+git pull --rebase
+
+echo "--- Pushing results to Git ---"
 git push
 
 echo "--- Workflow Finished Successfully ---"
