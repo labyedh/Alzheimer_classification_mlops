@@ -5,7 +5,7 @@ stages:
     deps:
     - path: data/
       hash: md5
-      md5: 9f124f7ab657e671914c8c75a3a42c43.dir
+      md5: 0198dbc66f78bc6a573ecaf3d866bbfc.dir
       size: 1008272293
       nfiles: 2
     - path: scripts/train.py
@@ -14,39 +14,39 @@ stages:
       size: 3364
     - path: src/
       hash: md5
-      md5: 7955e7d842cd0143086938f042648637.dir
+      md5: 83e73ac7804b6af73c743230d9e8e919.dir
       size: 55476
       nfiles: 19
     params:
       params.yaml:
-        feature_type: logmel
+        feature_type: mfcc
     outs:
     - path: metrics/train_metrics.json
       hash: md5
-      md5: 5def875fcfbb41bbff02a29f61a98353
+      md5: 9f2dd1cb9a3d892e2d0b27a97cbc4bd1
       size: 46
     - path: models/
       hash: md5
-      md5: 6001775c5fd35c3cbdb2483c9d35e536.dir
-      size: 11232555
+      md5: 129552951477532871b71096abd8854c.dir
+      size: 5908990
       nfiles: 5
     - path: plots/
       hash: md5
-      md5: d1e666b85b0fa59363b71b1bc7657b5f.dir
-      size: 674534
+      md5: 72f4111cea80d2737a331e7019f57193.dir
+      size: 611242
       nfiles: 5
   evaluate:
     cmd: python scripts/evaluate.py
     deps:
     - path: data/
       hash: md5
-      md5: 9f124f7ab657e671914c8c75a3a42c43.dir
+      md5: 0198dbc66f78bc6a573ecaf3d866bbfc.dir
       size: 1008272293
       nfiles: 2
     - path: models/
       hash: md5
-      md5: 6001775c5fd35c3cbdb2483c9d35e536.dir
-      size: 11232555
+      md5: 129552951477532871b71096abd8854c.dir
+      size: 5908990
       nfiles: 5
     - path: scripts/evaluate.py
       hash: md5
@@ -54,14 +54,14 @@ stages:
       size: 3611
     - path: src/
       hash: md5
-      md5: 58ccd2eef08580f38747f1376e05ea49.dir
+      md5: e05c112074a80d5b48dea00519c26b0b.dir
       size: 60660
       nfiles: 20
     params:
       params.yaml:
-        feature_type: logmel
+        feature_type: mfcc
     outs:
     - path: metrics/test_metrics.json
       hash: md5
-      md5: b1df052159871d1fa0145b6fbc3ac5f3
+      md5: dcc482c9a1791dad4c144ca8d273db8c
       size: 52
