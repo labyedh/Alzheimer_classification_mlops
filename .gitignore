@@ -2,7 +2,6 @@
 /data/
 /models/
 /plots/
-/metrics/
 
 # Python virtual environment and caches
 __pycache__/
@@ -19,5 +18,4 @@ gdrive-credentials.json
 .idea/
 .vscode/
 *.DS_Store
-/models
-/plots
+/mlruns
