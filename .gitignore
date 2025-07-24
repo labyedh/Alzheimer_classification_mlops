@@ -21,3 +21,4 @@ gdrive-credentials.json
 /mlruns
 /models
 /plots
+/data

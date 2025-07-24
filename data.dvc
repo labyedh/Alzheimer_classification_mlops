@@ -1,6 +1,9 @@
 outs:
-- md5: 9f124f7ab657e671914c8c75a3a42c43.dir
-  size: 1008272293
-  nfiles: 2
-  hash: md5
+- hash: md5
   path: data
+  files:
+  - relpath: log_mel_data.pkl
+    md5: f03c7d1666d262eaf7858f7d415859dc
+  - relpath: mfcc_data.pkl
+    md5: 186ceb93af3a6b86d539889b4f7022fe
+    size: 378453890
