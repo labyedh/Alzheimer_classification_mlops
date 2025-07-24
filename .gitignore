@@ -19,3 +19,5 @@ gdrive-credentials.json
 .vscode/
 *.DS_Store
 /mlruns
+/models
+/plots
