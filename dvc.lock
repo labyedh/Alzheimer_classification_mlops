@@ -14,7 +14,7 @@ stages:
       size: 3364
     - path: src/
       hash: md5
-      md5: 0c5544f9a4e1860827aa4e39dddcb87b.dir
+      md5: 63452ca6f3c7c6a8461d85874abbb616.dir
       size: 55476
       nfiles: 19
     params:
@@ -23,17 +23,17 @@ stages:
     outs:
     - path: metrics/train_metrics.json
       hash: md5
-      md5: 554778ddf9a8fe2e30c7a0edb1e1b22b
+      md5: 93f1b61d4c5af72dc5b34f650ace09f4
       size: 46
     - path: models/
       hash: md5
-      md5: 41c0dc8e9ca74955a4024a6b52e053ab.dir
+      md5: a4d23a642e66f9c78e9683107dd8139c.dir
       size: 11232555
       nfiles: 5
     - path: plots/
       hash: md5
-      md5: 97cc087be3ad24d738cd2f717b3f3603.dir
-      size: 649187
+      md5: 2cdfc6b832775886dbb72820f74e6091.dir
+      size: 677611
       nfiles: 5
   evaluate:
     cmd: python scripts/evaluate.py
@@ -45,7 +45,7 @@ stages:
       nfiles: 2
     - path: models/
       hash: md5
-      md5: 41c0dc8e9ca74955a4024a6b52e053ab.dir
+      md5: a4d23a642e66f9c78e9683107dd8139c.dir
       size: 11232555
       nfiles: 5
     - path: scripts/evaluate.py
@@ -54,7 +54,7 @@ stages:
       size: 3611
     - path: src/
       hash: md5
-      md5: 7f4108dcefe1cebfec5aeff09b37dffd.dir
+      md5: 61c9bcec8d6447531ed27cabf9d43c67.dir
       size: 60660
       nfiles: 20
     params:
@@ -63,5 +63,5 @@ stages:
     outs:
     - path: metrics/test_metrics.json
       hash: md5
-      md5: c0a06cd1faaa2eeb1d0356104d3d3025
+      md5: 86939d37c9cd2c0edf0d95fd035a33a5
       size: 52
